@@ -1,0 +1,55 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="SimpleReminder.NewEntryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="Add a new entry" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="New entry" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <ScrollViewer HorizontalAlignment="Left" Name="mainScrollViewer" VerticalAlignment="Top">
+                <Grid Margin="0,0,0,0" Height="530" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <TextBlock Height="30" HorizontalAlignment="Left" Margin="20,10,0,0" Name="textBlock1" Text="Description:" VerticalAlignment="Top" />
+                    <TextBox Height="82" HorizontalAlignment="Left" Margin="0,32,0,0" Name="descriptionTextBox" Text="TextBox" VerticalAlignment="Top" Width="460" />
+                    <RadioButton GroupName="timeTypeRadioButtonsGroup" Content="Once" Height="72" HorizontalAlignment="Left" Margin="22,113,0,0" Name="onceRadioButton" VerticalAlignment="Top" Width="222" Checked="onceRadioButton_Checked" />
+                    <toolkit:DatePicker Height="70" Margin="0,181,0,0" Name="onceDatePicker" VerticalAlignment="Top" />
+                    <RadioButton Content="Interval" GroupName="timeTypeRadioButtonsGroup" Height="72" HorizontalAlignment="Left" Margin="22,183,0,0" Name="intervalRadioButton" VerticalAlignment="Top" Width="222" Checked="intervalRadioButton_Checked" />
+                    <toolkit:DatePicker Name="intervalStartDatePicker" Height="70" VerticalAlignment="Top" Margin="0,261,0,0"></toolkit:DatePicker>
+                    <toolkit:DatePicker Name="intervalEndDatePicker" Margin="0,337,0,0" Height="70" VerticalAlignment="Top"></toolkit:DatePicker>
+                    
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+ 
+    <!--Sample code showing usage of ApplicationBar-->
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/Application bar icons/appbar.save.rest.png" Text="Save" Click="SaveApplicationBarIconButton_Click" />
+            <shell:ApplicationBarIconButton IconUri="/Images/Application bar icons/appbar.delete.rest.png" Text="Cancel" Click="CancelApplicationBarIconButton_Click" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+
+</phone:PhoneApplicationPage>
