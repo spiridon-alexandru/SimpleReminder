@@ -18,3 +18,5 @@ C:\Munca\Sample Projects\SimpleReminder\SimpleReminder\obj\Debug\XapCacheFile.xm
 C:\Munca\Sample Projects\SimpleReminder\SimpleReminder\obj\Debug\View\NewEntryPage.g.i.cs
 C:\Munca\Sample Projects\SimpleReminder\SimpleReminder\obj\Debug\MainPage.g.i.cs
 C:\Munca\Sample Projects\SimpleReminder\SimpleReminder\obj\Debug\View\SevenDayPage.g.i.cs
+C:\Munca\Sample Projects\SimpleReminder\SimpleReminder\Bin\Debug\LiveTitleUpdateScheduledTaskAgent.dll
+C:\Munca\Sample Projects\SimpleReminder\SimpleReminder\Bin\Debug\LiveTitleUpdateScheduledTaskAgent.pdb

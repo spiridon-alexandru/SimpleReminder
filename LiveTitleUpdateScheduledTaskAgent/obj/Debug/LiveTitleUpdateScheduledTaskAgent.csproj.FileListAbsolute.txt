@@ -1,0 +1,5 @@
+C:\Munca\Sample Projects\SimpleReminder\LiveTitleUpdateScheduledTaskAgent\obj\Debug\ResolveAssemblyReference.cache
+C:\Munca\Sample Projects\SimpleReminder\LiveTitleUpdateScheduledTaskAgent\Bin\Debug\LiveTitleUpdateScheduledTaskAgent.dll
+C:\Munca\Sample Projects\SimpleReminder\LiveTitleUpdateScheduledTaskAgent\Bin\Debug\LiveTitleUpdateScheduledTaskAgent.pdb
+C:\Munca\Sample Projects\SimpleReminder\LiveTitleUpdateScheduledTaskAgent\obj\Debug\LiveTitleUpdateScheduledTaskAgent.dll
+C:\Munca\Sample Projects\SimpleReminder\LiveTitleUpdateScheduledTaskAgent\obj\Debug\LiveTitleUpdateScheduledTaskAgent.pdb

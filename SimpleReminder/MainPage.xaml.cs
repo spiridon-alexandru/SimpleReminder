@@ -15,11 +15,17 @@ using SimpleReminder.Model.ListModel;
 using SimpleReminder.Model;
 using SimpleReminder.Model.Repository;
 using System.Windows.Navigation;
+using Microsoft.Phone.Shell;
+using Microsoft.Phone.Scheduler;
 
 namespace SimpleReminder
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        // a periodic task that updates the live title when new reminders appear
+        PeriodicTask periodicTask;
+        string periodicTaskName = "PeriodicLiveTitleUpdateAgent";
+
         // long list selector object and the list of groups
         LongListSelector dayListSelector;
         IList<Group<Item>> itemList;
@@ -37,6 +43,12 @@ namespace SimpleReminder
 
             InitList();
             InitStorage();
+
+            // creates the application title
+            CreateApplicationTile();
+            // Creates a periodic task that updates the live title when the application
+            // is in foreground mode
+            StartPeriodicAgent();
         }
 
         #region Initialization
@@ -147,6 +159,92 @@ namespace SimpleReminder
                           select new Group<Item>(c.Key, c, new SolidColorBrush(Colors.White));
             itemList = groupBy.ToObservableCollection();
             this.dayListSelector.ItemsSource = itemList;
+        }
+
+        /**
+         * Creates the live application title that will contain the reminder notifications
+         */
+        public void CreateApplicationTile()
+        {
+            var appTile = ShellTile.ActiveTiles.First();
+
+            if (appTile != null)
+            {
+                // all the back properties are set to empty strings -> this hides the back of the title
+                var standardTile = new StandardTileData
+                {
+                    Title = "Remainders",
+                    BackgroundImage = new Uri("Images/SecondaryTileFrontIcon.jpg", UriKind.Relative),  
+                    Count = 13,
+                    BackTitle = "",
+                    BackBackgroundImage = new Uri("", UriKind.Relative),
+                    BackContent = ""
+                };
+
+                appTile.Update(standardTile);
+            }
+        }  
+
+        /**
+         * Starts a periodic task managed by the system that updates the live title when new
+         * reminders appear.
+         */
+        private void StartPeriodicAgent()
+        {
+            // Obtain a reference to the period task, if one exists
+            periodicTask = ScheduledActionService.Find(periodicTaskName) as PeriodicTask;
+
+            // If the task already exists and background agents are enabled for the
+            // application, you must remove the task and then add it again to update 
+            // the schedule
+            if (periodicTask != null)
+            {
+                RemoveAgent(periodicTaskName);
+            }
+
+            periodicTask = new PeriodicTask(periodicTaskName);
+
+            // The description is required for periodic agents. This is the string that the user
+            // will see in the background services Settings page on the device.
+            periodicTask.Description = "This updates the SimpleReminder live title.";
+
+            // Place the call to Add in a try block in case the user has disabled agents.
+            try
+            {
+                ScheduledActionService.Add(periodicTask);
+
+                ScheduledActionService.LaunchForTest(periodicTaskName, TimeSpan.FromSeconds(2));
+            }
+            catch (InvalidOperationException exception)
+            {
+                if (exception.Message.Contains("BNS Error: The action is disabled"))
+                {
+                    MessageBox.Show("Background agents for this application have been disabled by the user.");
+                }
+
+                if (exception.Message.Contains("BNS Error: The maximum number of ScheduledActions of this type have already been added."))
+                {
+                    MessageBox.Show("The maximum number of ScheduledActions of this type have already been added.");
+                }
+            }
+            catch (SchedulerServiceException)
+            {
+                // No user action required.
+            }
+        }
+
+        /**
+         * Removes the periodic task.
+         */
+        private void RemoveAgent(string name)
+        {
+            try
+            {
+                ScheduledActionService.Remove(name);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         #endregion

@@ -113,7 +113,12 @@
     <Content Include="Images\Application bar icons\checklist.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\LiveTitleUpdateScheduledTaskAgent\LiveTitleUpdateScheduledTaskAgent.csproj">
+      <Project>{8C82E5C3-B2EF-4219-8AE7-6C9405B3DDE5}</Project>
+      <Name>LiveTitleUpdateScheduledTaskAgent</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
