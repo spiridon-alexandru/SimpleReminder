@@ -88,7 +88,7 @@ namespace SimpleReminder.View
          */
         private void NewEntryBarIconButton_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("View/NewEntryPage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/View/NewEntryPage.xaml", UriKind.Relative));
         }
 
         #endregion

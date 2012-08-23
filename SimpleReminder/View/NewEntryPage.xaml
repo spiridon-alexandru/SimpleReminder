@@ -14,6 +14,27 @@
     mc:Ignorable="d" d:DesignHeight="696" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
 
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -30,16 +51,27 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <ScrollViewer HorizontalAlignment="Left" Name="mainScrollViewer" VerticalAlignment="Top">
-                <Grid Margin="0,0,0,0" Height="530" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <TextBlock Height="30" HorizontalAlignment="Left" Margin="20,10,0,0" Name="textBlock1" Text="Description:" VerticalAlignment="Top" />
-                    <TextBox Height="82" HorizontalAlignment="Left" Margin="0,32,0,0" Name="descriptionTextBox" Text="TextBox" VerticalAlignment="Top" Width="460" />
-                    <RadioButton GroupName="timeTypeRadioButtonsGroup" Content="Once" Height="72" HorizontalAlignment="Left" Margin="22,113,0,0" Name="onceRadioButton" VerticalAlignment="Top" Width="222" Checked="onceRadioButton_Checked" />
-                    <toolkit:DatePicker Height="70" Margin="0,181,0,0" Name="onceDatePicker" VerticalAlignment="Top" />
-                    <RadioButton Content="Interval" GroupName="timeTypeRadioButtonsGroup" Height="72" HorizontalAlignment="Left" Margin="22,183,0,0" Name="intervalRadioButton" VerticalAlignment="Top" Width="222" Checked="intervalRadioButton_Checked" />
-                    <toolkit:DatePicker Name="intervalStartDatePicker" Height="70" VerticalAlignment="Top" Margin="0,261,0,0"></toolkit:DatePicker>
-                    <toolkit:DatePicker Name="intervalEndDatePicker" Margin="0,337,0,0" Height="70" VerticalAlignment="Top"></toolkit:DatePicker>
+                <StackPanel Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <TextBlock Height="30" HorizontalAlignment="Left" Margin="20,10,0,0" Name="textBlock1" Text="What:" VerticalAlignment="Top" />
+                    <TextBox Height="82" HorizontalAlignment="Left" Margin="0,0,0,0" Name="whatTextBox" Text="" VerticalAlignment="Top" Width="460" />
+                    <RadioButton GroupName="timeTypeRadioButtonsGroup" IsChecked="True" Content="Once" Height="72" HorizontalAlignment="Left" Margin="22,0,0,0" Name="onceRadioButton" VerticalAlignment="Top" Width="222" Checked="onceRadioButton_Checked" />
+                    <StackPanel Name="onceStackPanel" Height="70" VerticalAlignment="Top">
+                        <toolkit:DatePicker Name="onceDatePicker" Height="70" />
+                    </StackPanel>
                     
-                </Grid>
+                    <RadioButton Content="Interval" GroupName="timeTypeRadioButtonsGroup" Height="72" HorizontalAlignment="Left" Margin="22,0,0,0" Name="intervalRadioButton" VerticalAlignment="Top" Width="222" Checked="intervalRadioButton_Checked" />
+                    <StackPanel Name="intervalStackPanel"  Height="0" Opacity ="0" VerticalAlignment="Top">
+                        <toolkit:DatePicker Name="intervalStartDatePicker" Height="70" VerticalAlignment="Top"></toolkit:DatePicker>
+                        <toolkit:DatePicker Name="intervalEndDatePicker" Height="70" VerticalAlignment="Top"></toolkit:DatePicker>
+                    </StackPanel>
+                    <TextBlock Margin="20,10,0,0" Height="30" Name="textBlock2" Text="Importance:" />
+                    <RadioButton GroupName="importanceRadioButtonsGroup" IsChecked="True" Content="Important and urgent" Height="72" HorizontalAlignment="Left" Margin="22,0,0,0" Name="importantURadioButton" VerticalAlignment="Top" Width="409"/>
+                    <RadioButton GroupName="importanceRadioButtonsGroup" Content="Important and not urgent" Height="72" HorizontalAlignment="Left" Margin="22,0,0,0" Name="importantNURadioButton" VerticalAlignment="Top" Width="409"/>
+                    <RadioButton GroupName="importanceRadioButtonsGroup" Content="Not important and urgent" Height="72" HorizontalAlignment="Left" Margin="22,0,0,0" Name="notImportantURadioButton" VerticalAlignment="Top" Width="409"/>
+                    <RadioButton GroupName="importanceRadioButtonsGroup" Content="Not important and not urgent" Height="72" HorizontalAlignment="Left" Margin="22,0,0,0" Name="notImportantNURadioButton" VerticalAlignment="Top" Width="409"/>
+                    <TextBlock Margin="20,10,0,0" Height="30" Name="textBlock3" Text="Description:" />
+                    <TextBox Height="300" AcceptsReturn="True" Name="descriptionTextBox" Text="" Width="460" />
+                </StackPanel>
             </ScrollViewer>
         </Grid>
     </Grid>

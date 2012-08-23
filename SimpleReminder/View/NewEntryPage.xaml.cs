@@ -17,12 +17,15 @@ namespace SimpleReminder
 {
     static class Constants
     {
-        public const double DATE_PICKER_HEIGHT = 70;
+        public const double ONCE_STACKPANEL_HEIGHT = 70;
+        public const double INTERVAL_STACKPANEL_HEIGHT = 150;
     }
 
     public partial class NewEntryPage : PhoneApplicationPage
     {
         private Entry newEntry;
+        // we ignore the first check event
+        private bool radioButtonClicked = false;
 
         public Entry NewEntry
         {
@@ -37,13 +40,6 @@ namespace SimpleReminder
             InitializeComponent();
 
             descriptionTextBox.Text = "";
-       //     onceRadioButton.IsChecked = true;
-            intervalStartDatePicker.Opacity = 0.0;
-            intervalStartDatePicker.Height = 0.0;
-            intervalEndDatePicker.Opacity = 0.0;
-            intervalEndDatePicker.Height = 0.0;
-            onceDatePicker.Opacity = 0.0;
-            onceDatePicker.Height = 0.0;
         }
 
         #region User actions
@@ -62,28 +58,38 @@ namespace SimpleReminder
 
         private void onceRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            if ((sender as RadioButton).IsChecked == true)
+            if ((sender as RadioButton).IsChecked == true && radioButtonClicked)
             {
-                CreateFadeInOutAnimation(onceDatePicker, 0.0, 1.0).Begin();
-                CreateFadeInOutAnimation(intervalStartDatePicker, 1.0, 0.0).Begin();
-                CreateFadeInOutAnimation(intervalEndDatePicker, 1.0, 0.0).Begin();
+                onceDatePicker.IsEnabled = true;
+                CreateFadeInOutAnimation(onceStackPanel, 0.0, 1.0, Constants.ONCE_STACKPANEL_HEIGHT).Begin();
+                intervalStartDatePicker.IsEnabled = false;
+                intervalEndDatePicker.IsEnabled = false;
+                CreateFadeInOutAnimation(intervalStackPanel, 1.0, 0.0, Constants.INTERVAL_STACKPANEL_HEIGHT).Begin();
             }
         }
 
         private void intervalRadioButton_Checked(object sender, RoutedEventArgs e)
         {
+            radioButtonClicked = true;
             if ((sender as RadioButton).IsChecked == true)
             {
-                CreateFadeInOutAnimation(intervalStartDatePicker, 0.0, 1.0).Begin();
-                CreateFadeInOutAnimation(intervalEndDatePicker, 0.0, 1.0).Begin();
-                CreateFadeInOutAnimation(onceDatePicker, 1.0, 0.0).Begin();
+                intervalStartDatePicker.IsEnabled = true;
+                intervalEndDatePicker.IsEnabled = true;
+                CreateFadeInOutAnimation(intervalStackPanel, 0.0, 1.0, Constants.INTERVAL_STACKPANEL_HEIGHT).Begin();
+                onceDatePicker.IsEnabled = false;
+                CreateFadeInOutAnimation(onceStackPanel, 1.0, 0.0, Constants.ONCE_STACKPANEL_HEIGHT).Begin();
             }
         }
 
         #region Animations
 
-        private Storyboard CreateFadeInOutAnimation(UIElement target, double from, double to)
+        /**
+         * If from is less than two, we fade in the target and increase it's height from 0 to targetRealHeight
+         * If from is greater that two, we fade out the target and decrease it's height from targetRealHeight to 0
+         */
+        private Storyboard CreateFadeInOutAnimation(UIElement target, double from, double to, double targetRealHeight)
         {
+            // fade animation
             Storyboard sb = new Storyboard();
             DoubleAnimation fadeInOutAnimation = new DoubleAnimation();
             fadeInOutAnimation.From = from;
@@ -95,70 +101,30 @@ namespace SimpleReminder
 
             sb.Children.Add(fadeInOutAnimation);
 
+            // height animation
+            double heightFrom = 0;
+            double heightTo = 0;
             // fade in animation
             if (from < to)
             {
-                DoubleAnimation modifyHeightAnimation = new DoubleAnimation();
-                modifyHeightAnimation.From = 0;
-                modifyHeightAnimation.To = Constants.DATE_PICKER_HEIGHT;
-                modifyHeightAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(500));
-
-                Storyboard.SetTarget(modifyHeightAnimation, target);
-                Storyboard.SetTargetProperty(modifyHeightAnimation, new PropertyPath("Height"));
-
-                sb.Children.Add(modifyHeightAnimation);
-
-                // we need to move all the children bellow the target downwards
-                int targetIndex = (mainScrollViewer.Content as Grid).Children.IndexOf(target);
-                for (int i = targetIndex + 1; i < (mainScrollViewer.Content as Grid).Children.Count; i++)
-                {
-                    FrameworkElement child = (mainScrollViewer.Content as Grid).Children[i] as FrameworkElement;
-                    TranslateTransform trans = new TranslateTransform();
-                    child.RenderTransform = trans;
-
-                    DoubleAnimation moveDownAnimation = new DoubleAnimation();
-                    moveDownAnimation.From = 0;
-                    moveDownAnimation.To = Constants.DATE_PICKER_HEIGHT;
-                    moveDownAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(500));
-
-                    Storyboard.SetTarget(moveDownAnimation, child);
-                    Storyboard.SetTargetProperty(moveDownAnimation, new PropertyPath("(UIElement.RenderTransform).(TranslateTransform.Y)"));
-
-                    sb.Children.Add(moveDownAnimation);
-                }
+                heightFrom = 0;
+                heightTo = targetRealHeight;    
             }
             // fade out animation
             else
             {
-                DoubleAnimation modifyHeightAnimation = new DoubleAnimation();
-                modifyHeightAnimation.From = Constants.DATE_PICKER_HEIGHT;
-                modifyHeightAnimation.To = 0;
-                modifyHeightAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(500));
-
-                Storyboard.SetTarget(modifyHeightAnimation, target);
-                Storyboard.SetTargetProperty(modifyHeightAnimation, new PropertyPath("Height"));
-
-                sb.Children.Add(modifyHeightAnimation);
-
-                // we need to move all the children bellow the target upwards
-                int targetIndex = (mainScrollViewer.Content as Grid).Children.IndexOf(target);
-                for (int i = targetIndex + 1; i < (mainScrollViewer.Content as Grid).Children.Count; i++)
-                {
-                    FrameworkElement child = (mainScrollViewer.Content as Grid).Children[i] as FrameworkElement;
-                    TranslateTransform trans = new TranslateTransform();
-                    child.RenderTransform = trans;
-
-                    DoubleAnimation moveUpAnimation = new DoubleAnimation();
-                    moveUpAnimation.From = 0;
-                    moveUpAnimation.To = -Constants.DATE_PICKER_HEIGHT;
-                    moveUpAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(500));
-
-                    Storyboard.SetTarget(moveUpAnimation, child);
-                    Storyboard.SetTargetProperty(moveUpAnimation, new PropertyPath("(UIElement.RenderTransform).(TranslateTransform.Y)"));
-
-                    sb.Children.Add(moveUpAnimation);
-                }
+                heightFrom = targetRealHeight;
+                heightTo = 0;
             }
+            DoubleAnimation modifyHeightAnimation = new DoubleAnimation();
+            modifyHeightAnimation.From = heightFrom;
+            modifyHeightAnimation.To = heightTo;
+            modifyHeightAnimation.Duration = new Duration(TimeSpan.FromMilliseconds(500));
+
+            Storyboard.SetTarget(modifyHeightAnimation, target);
+            Storyboard.SetTargetProperty(modifyHeightAnimation, new PropertyPath("Height"));
+
+            sb.Children.Add(modifyHeightAnimation);
 
             return sb;
         }

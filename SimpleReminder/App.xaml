@@ -11,7 +11,7 @@
             <Grid Margin="12,0,0,0">
                 <Grid Width="480" Height="60" HorizontalAlignment="Left">
                     <Border Width="480" Background="{Binding HeaderColor}">
-                        <TextBlock HorizontalAlignment="Center" Margin="0,0,1,5" Foreground="Black" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Title}" TextAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock HorizontalAlignment="Left" Margin="50,0,1,5" Foreground="Black" Style="{StaticResource PhoneTextLargeStyle}" Text="{Binding Title}" TextAlignment="Left" VerticalAlignment="Center"/>
                     </Border>
                 </Grid>
             </Grid>
@@ -20,7 +20,7 @@
 
         <DataTemplate x:Key="jumpListItemTemplate">
             <Border Background="{Binding BackgroundColor}" Margin="0">
-                <TextBlock Text="{Binding Name}" FontFamily="{Binding ItemFont}" FontSize="24"  Height="30" Margin="{StaticResource PhoneTouchTargetOverhang}" Foreground="{StaticResource PhoneForegroundBrush}" VerticalAlignment="Bottom"/>
+                <TextBlock Text="{Binding Name}" FontFamily="{Binding ItemFont}" FontSize="24"  Height="30" Margin="50,10,0,0" Foreground="{StaticResource PhoneForegroundBrush}" VerticalAlignment="Bottom"/>
             </Border>
         </DataTemplate>
 
