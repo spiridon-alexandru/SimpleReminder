@@ -56,6 +56,7 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton IconUri="/Images/Application bar icons/appbar.add.rest.png" Text="Add entry" Click="NewEntryBarIconButton_Click" />
+            <shell:ApplicationBarIconButton IconUri="/Images/Application bar icons/appbar.add.rest.png" Text="Priority page" Click="PriorityBarIconButton_Click" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

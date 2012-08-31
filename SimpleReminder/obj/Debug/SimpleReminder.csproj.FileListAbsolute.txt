@@ -20,3 +20,4 @@ C:\Munca\Sample Projects\SimpleReminder\SimpleReminder\obj\Debug\MainPage.g.i.cs
 C:\Munca\Sample Projects\SimpleReminder\SimpleReminder\obj\Debug\View\SevenDayPage.g.i.cs
 C:\Munca\Sample Projects\SimpleReminder\SimpleReminder\Bin\Debug\LiveTitleUpdateScheduledTaskAgent.dll
 C:\Munca\Sample Projects\SimpleReminder\SimpleReminder\Bin\Debug\LiveTitleUpdateScheduledTaskAgent.pdb
+C:\Munca\Sample Projects\SimpleReminder\SimpleReminder\obj\Debug\View\PriorityTablePage.g.i.cs

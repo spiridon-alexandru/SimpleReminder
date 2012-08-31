@@ -91,6 +91,14 @@ namespace SimpleReminder.View
             NavigationService.Navigate(new Uri("/View/NewEntryPage.xaml", UriKind.Relative));
         }
 
+        /**
+         * Navigates to the priority table page
+         */
+        private void PriorityBarIconButton_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/View/PriorityTablePage.xaml", UriKind.Relative));
+        }
+
         #endregion
 
         #region Private methods

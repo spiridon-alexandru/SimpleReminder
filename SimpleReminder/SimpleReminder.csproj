@@ -74,6 +74,9 @@
       <DependentUpon>NewEntryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\PriorityTablePage.xaml.cs">
+      <DependentUpon>PriorityTablePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SevenDayPage.xaml.cs">
       <DependentUpon>SevenDayPage.xaml</DependentUpon>
     </Compile>
@@ -88,6 +91,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NewEntryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PriorityTablePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
